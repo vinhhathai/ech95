@@ -11,6 +11,7 @@ const PRODUCTS_PER_PAGE = 6;
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [page, setPage] = useState(1);
+  const [modalProduct, setModalProduct] = useState(null);
 
   const filteredProducts = selectedCategory === 'all'
     ? PRODUCTS
@@ -29,12 +30,15 @@ export default function ProductsPage() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {paginatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} onClick={() => setModalProduct(product)} />
               ))}
             </div>
             <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
           </div>
         </section>
+        {modalProduct && (
+          <ProductModal product={modalProduct} onClose={() => setModalProduct(null)} />
+        )}
         <SubscriptionBanner />
       </main>
       <Footer />
@@ -66,7 +70,7 @@ function ProductTabs({ selected, onSelect }: { selected: string, onSelect: (cat:
   return (
     <div className="container mx-auto px-4 mt-6">
       <div className="flex bg-gray-100 rounded-lg overflow-x-auto">
-        {PRODUCT_CATEGORIES.map((cat, idx) => (
+        {PRODUCT_CATEGORIES.map((cat) => (
           <button
             key={cat.key}
             className={`flex-1 min-w-[150px] py-3 px-2 text-base font-semibold transition-all
@@ -82,7 +86,7 @@ function ProductTabs({ selected, onSelect }: { selected: string, onSelect: (cat:
   );
 }
 
-function ProductCard({ product }: { product: any }) {
+function ProductCard({ product, onClick }: { product: any, onClick: () => void }) {
   // Màu minh họa cho từng loại
   const colorMap: Record<string, string> = {
     'giong': 'bg-lime-200',
@@ -92,16 +96,39 @@ function ProductCard({ product }: { product: any }) {
   };
   const color = colorMap[product.category || 'default'] || colorMap.default;
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col items-center p-6">
+    <button type="button" onClick={onClick} className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col items-center p-6 cursor-pointer hover:shadow-lg transition">
       <div className={`w-full h-40 rounded-lg flex items-center justify-center mb-4 ${color} bg-opacity-10 relative`}>
-        <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full ${color} flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
-          <span className="text-4xl">🐸</span>
-        </div>
+        <img src={product.image} alt={product.name} className="w-24 h-24 object-cover rounded-full shadow" />
       </div>
       <h3 className="text-lg font-bold text-gray-800 text-center mb-1">{product.name}</h3>
-      <p className="text-gray-600 text-center text-sm mb-1">{product.description}</p>
-      <div className="text-green-700 font-bold text-base mb-2">{product.price}</div>
-      <Button size="md" className="w-full mt-auto">XEM CHI TIẾT</Button>
+      <p className="text-gray-600 text-center text-sm mb-1">{product.shortDescription}</p>
+    </button>
+  );
+}
+
+function ProductModal({ product, onClose }: { product: any, onClose: () => void }) {
+  const [imgIdx, setImgIdx] = useState(0);
+  const images = product.images && product.images.length > 0 ? product.images : [product.image];
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative animate-fadeIn">
+        <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 hover:text-green-700 text-2xl font-bold">×</button>
+        <div className="flex flex-col items-center">
+          <div className="relative w-64 h-64 mb-4 flex items-center justify-center">
+            <img src={images[imgIdx]} alt={product.name} className="w-full h-full object-cover rounded-lg border" />
+            {images.length > 1 && (
+              <>
+                <button onClick={() => setImgIdx((imgIdx - 1 + images.length) % images.length)} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-green-100">&#8592;</button>
+                <button onClick={() => setImgIdx((imgIdx + 1) % images.length)} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-green-100">&#8594;</button>
+              </>
+            )}
+          </div>
+          <h3 className="text-xl font-bold text-green-800 mb-2 text-center">{product.name}</h3>
+          <p className="text-gray-700 text-center mb-2">{product.shortDescription}</p>
+          <p className="text-gray-500 text-center text-sm mb-2">{product.description}</p>
+        </div>
+      </div>
+      <div className="fixed inset-0 z-40" onClick={onClose}></div>
     </div>
   );
 }
