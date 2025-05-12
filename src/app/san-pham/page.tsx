@@ -1,23 +1,59 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { PRODUCTS, PRODUCT_CATEGORIES } from '@/constants';
 import Button from '@/components/ui/Button';
+import { useLoadingContext } from '@/components/ui/LoadingContext';
+import { Product } from '@/types';
 
 const PRODUCTS_PER_PAGE = 6;
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [page, setPage] = useState(1);
-  const [modalProduct, setModalProduct] = useState(null);
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const { withLoading } = useLoadingContext();
 
+  // Load products only once on initial page load
+  useEffect(() => {
+    const loadInitialProducts = async () => {
+      await withLoading(
+        new Promise<void>(resolve => {
+          // Simulate network delay for initial page load only
+          setTimeout(() => {
+            setIsInitialLoad(false);
+            resolve();
+          }, 500);
+        })
+      );
+    };
+
+    if (isInitialLoad) {
+      loadInitialProducts();
+    }
+  }, [isInitialLoad, withLoading]);
+
+  // Filter products client-side without loading state
   const filteredProducts = selectedCategory === 'all'
     ? PRODUCTS
     : PRODUCTS.filter((p) => p.category === selectedCategory);
+  
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setPage(1);
+    // No loading is triggered here
+  };
+
+  // Don't render the UI until initial load is complete
+  if (isInitialLoad) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,7 +61,7 @@ export default function ProductsPage() {
       <main className="flex-grow">
         <ProductsHero />
         <Breadcrumbs />
-        <ProductTabs selected={selectedCategory} onSelect={cat => { setSelectedCategory(cat); setPage(1); }} />
+        <ProductTabs selected={selectedCategory} onSelect={handleCategoryChange} />
         <section className="py-10 sm:py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -86,7 +122,7 @@ function ProductTabs({ selected, onSelect }: { selected: string, onSelect: (cat:
   );
 }
 
-function ProductCard({ product, onClick }: { product: any, onClick: () => void }) {
+function ProductCard({ product, onClick }: { product: Product, onClick: () => void }) {
   // Màu minh họa cho từng loại
   const colorMap: Record<string, string> = {
     'giong': 'bg-lime-200',
@@ -106,7 +142,7 @@ function ProductCard({ product, onClick }: { product: any, onClick: () => void }
   );
 }
 
-function ProductModal({ product, onClose }: { product: any, onClose: () => void }) {
+function ProductModal({ product, onClose }: { product: Product, onClose: () => void }) {
   const [imgIdx, setImgIdx] = useState(0);
   const images = product.images && product.images.length > 0 ? product.images : [product.image];
   return (

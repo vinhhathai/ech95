@@ -2,8 +2,8 @@ import { NavLink, SocialLink, Product } from '@/types';
 
 export const SITE_NAME = 'Ếch giống 95';
 export const SITE_DESCRIPTION = 'Trang trại ếch chất lượng cao';
-export const SITE_ADDRESS = 'Xã An Thịnh, Huyện Lương Sơn, Tỉnh Hòa Bình';
-export const SITE_PHONE = '0987.654.321';
+export const SITE_ADDRESS = '209 Ấp Mĩ 1, Hoả Lựu, Vị Thanh, Hậu Giang';
+export const SITE_PHONE = '0977 210 006';
 
 export const NAV_LINKS: NavLink[] = [
   { name: 'Trang chủ', href: '/' },
