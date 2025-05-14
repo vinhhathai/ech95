@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import React, { createContext, useContext, useState, useEffect, Suspense } from 'react';
+import { usePathname } from 'next/navigation';
 import LoadingOverlay from '../ui/LoadingOverlay';
 import { LoadingProvider } from '../ui/LoadingContext';
 
@@ -15,6 +15,18 @@ const NavigationContext = createContext<NavigationContextProps>({
 
 export const useNavigation = () => useContext(NavigationContext);
 
+// Tách component sử dụng useSearchParams để bọc trong Suspense
+function NavigationWatcher({ onNavigate }: { onNavigate: () => void }) {
+  const { useSearchParams } = require('next/navigation');
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    onNavigate();
+  }, [searchParams, onNavigate]);
+
+  return null;
+}
+
 export default function NavigationProvider({
   children,
 }: {
@@ -22,9 +34,8 @@ export default function NavigationProvider({
 }) {
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  useEffect(() => {
+  const handleNavigation = () => {
     // Set loading to true for a brief moment when the route changes
     setIsNavigating(true);
     
@@ -34,12 +45,20 @@ export default function NavigationProvider({
     }, 500);
     
     return () => clearTimeout(timer);
-  }, [pathname, searchParams]);
+  };
+
+  // Theo dõi thay đổi pathname
+  useEffect(() => {
+    handleNavigation();
+  }, [pathname]);
 
   return (
     <NavigationContext.Provider value={{ isNavigating }}>
       <LoadingProvider>
         <LoadingOverlay isLoading={isNavigating} />
+        <Suspense fallback={null}>
+          <NavigationWatcher onNavigate={handleNavigation} />
+        </Suspense>
         {children}
       </LoadingProvider>
     </NavigationContext.Provider>
