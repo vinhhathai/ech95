@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, Suspense } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import LoadingOverlay from '../ui/LoadingOverlay';
 import { LoadingProvider } from '../ui/LoadingContext';
 
@@ -15,9 +15,8 @@ const NavigationContext = createContext<NavigationContextProps>({
 
 export const useNavigation = () => useContext(NavigationContext);
 
-// Tách component sử dụng useSearchParams để bọc trong Suspense
+// Client Component sử dụng useSearchParams
 function NavigationWatcher({ onNavigate }: { onNavigate: () => void }) {
-  const { useSearchParams } = require('next/navigation');
   const searchParams = useSearchParams();
 
   useEffect(() => {
