@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import Image from 'next/image';
 
 export default function ProcessPage() {
   return (
@@ -54,7 +55,16 @@ const LifeCycleSection = () => (
     <div className="w-20 h-1 bg-green-800 mb-4"></div>
     <p className="text-gray-700 mb-1">Hiểu rõ về vòng đời tự nhiên của ếch giúp chúng tôi tối ưu quy trình nuôi và phát triển ếch tại trang trại, đảm bảo điều kiện sinh trưởng tốt nhất cho từng giai đoạn phát triển.</p>
     <div className="flex flex-col md:flex-row items-center gap-8 mt-6">
-      <img src="/frog-lifecycle.png" alt="Vòng đời ếch" className="w-full md:w-1/2 max-w-lg rounded-lg border" />
+      <div className="relative w-full md:w-1/2 max-w-lg h-[300px] rounded-lg border overflow-hidden">
+        <Image 
+          src="/frog-lifecycle.png" 
+          alt="Vòng đời ếch" 
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-contain"
+          priority
+        />
+      </div>
       <ul className="flex-1 space-y-2 text-gray-700 text-sm md:text-base">
         <li>1. Trứng → 2. Nòng nọc mới nở → 3. Nòng nọc mọc chân sau → 4. Nòng nọc đủ chân → 5. Ếch con → 6. Ếch thiếu niên → 7. Ếch trưởng thành</li>
         <li>• Mỗi giai đoạn đều được kiểm soát điều kiện nước, dinh dưỡng và môi trường sống.</li>
@@ -134,6 +144,7 @@ function ProcessTimeline() {
   );
 }
 
+/* Removed unused component
 function CertificationsBanner() {
   const certs = [
     { label: 'HACCP' }, { label: 'ISO' }, { label: 'VietGAP' }, { label: 'FDA' }, { label: 'GMP' }, { label: 'BRC' }, { label: 'EU' }, { label: 'HALAL' }
@@ -152,4 +163,5 @@ function CertificationsBanner() {
       </div>
     </section>
   );
-} 
+}
+*/ 

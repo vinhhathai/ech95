@@ -80,6 +80,7 @@ $ npm run build && npm start
 - [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
 - [TypeScript](https://www.typescriptlang.org/) - Typed JS
 - [ESLint](https://eslint.org/) - Code linting
+- Vercel (khuyến nghị để deploy)
 
 ---
 
@@ -92,3 +93,77 @@ $ npm run build && npm start
 
 ## 📄 License
 Dự án này được cấp phép theo giấy phép [MIT License](LICENSE).
+
+## Cài đặt và phát triển
+
+```bash
+# Cài đặt dependencies
+npm install
+
+# Chạy môi trường development
+npm run dev
+
+# Build cho production
+npm run build
+
+# Chạy ở môi trường production
+npm run start
+```
+
+## Triển khai (Deploy)
+
+### Deploy với Vercel (Đề xuất)
+
+Cách đơn giản nhất để triển khai ứng dụng Next.js là sử dụng nền tảng [Vercel](https://vercel.com/new) từ nhóm phát triển Next.js.
+
+1. Đăng nhập vào Vercel và import repository từ GitHub/GitLab.
+2. Vercel sẽ tự động phát hiện đây là ứng dụng Next.js và thiết lập cấu hình deployment tối ưu.
+3. Mỗi khi bạn push commit lên GitHub, Vercel sẽ tự động deploy phiên bản mới.
+
+### Deploy lên VPS/Máy chủ riêng
+
+1. Build ứng dụng:
+```bash
+npm run build
+```
+
+2. Khởi động với Node.js:
+```bash
+npm run start
+```
+
+3. Hoặc sử dụng PM2 để quản lý process:
+```bash
+pm2 start npm --name "echgiong95" -- start
+```
+
+### Cấu hình Nginx (nếu dùng VPS)
+
+```nginx
+server {
+    listen 80;
+    server_name trangtraiechxanh.vn www.trangtraiechxanh.vn;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+## Tối ưu hóa SEO
+
+Website đã được tối ưu SEO với:
+- Metadata đầy đủ
+- OpenGraph và Twitter cards
+- Sitemap tự động tạo
+- Robots.txt
+- PWA
+
+## Liên hệ
+
+Mọi thắc mắc vui lòng liên hệ qua email: hathaivinhs@gmail.com

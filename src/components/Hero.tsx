@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Button from './ui/Button';
 import { SITE_NAME, SITE_DESCRIPTION } from '@/constants';
 
@@ -21,12 +22,19 @@ const Hero = () => {
     <div className="relative w-full min-h-[420px] md:min-h-[520px] flex items-center justify-center overflow-hidden">
       {/* Background slider */}
       {HERO_IMAGES.map((img, idx) => (
-        <img
+        <div 
           key={img}
-          src={img}
-          alt={`Hero ${idx + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${current === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-        />
+          className={`absolute inset-0 transition-opacity duration-700 ${current === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        >
+          <Image
+            src={img}
+            alt={`Hero ${idx + 1}`}
+            fill
+            sizes="100vw"
+            priority={idx === 0}
+            className="object-cover"
+          />
+        </div>
       ))}
       {/* Overlay */}
       <div className="absolute inset-0 bg-green-900/40 z-20" />
