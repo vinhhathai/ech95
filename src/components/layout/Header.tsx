@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { NAV_LINKS, SITE_NAME, SITE_DESCRIPTION } from '@/constants';
 
 const Header = () => {
@@ -11,8 +12,15 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-xl font-bold">E</span>
+            <div className="relative w-14 h-14 flex items-center justify-center">
+              <Image 
+                src="/logo.png" 
+                alt={SITE_NAME} 
+                width={50} 
+                height={50} 
+                className="object-contain"
+                priority
+              />
             </div>
             <div className="ml-3">
               <h1 className="text-xl font-bold text-green-800">{SITE_NAME}</h1>

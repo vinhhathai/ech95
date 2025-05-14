@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký nhận báo giá - Ếch Giống 95</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2a6a45;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #555;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #2a6a45;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1e4d31;
+    }
+    .note {
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Đăng ký nhận báo giá sản phẩm</h1>
+    <p>Để nhận được bảng báo giá chi tiết về các sản phẩm của Ếch Giống 95, vui lòng đăng ký email của bạn dưới đây.</p>
+    
+    <!-- 
+      Phương pháp 1: Sử dụng mailto (đơn giản nhất, nhưng có hạn chế) 
+      Khi người dùng submit, sẽ mở ứng dụng email của họ với nội dung được chuẩn bị sẵn
+    -->
+    <form id="mailto-form" action="mailto:your-email@example.com" method="post" enctype="text/plain">
+      <div class="form-group">
+        <label for="email">Email của bạn:</label>
+        <input type="email" id="email" name="email" required placeholder="example@gmail.com">
+      </div>
+      <input type="hidden" name="subject" value="Đăng ký nhận báo giá sản phẩm">
+      <input type="hidden" name="body" value="Tôi muốn đăng ký nhận báo giá sản phẩm">
+      <button type="submit">Đăng ký ngay</button>
+    </form>
+
+    <p class="note">* Chúng tôi sẽ gửi báo giá tới email của bạn trong vòng 24h.</p>
+    
+    <!-- 
+      Phương pháp 2: Sử dụng FormSubmit.co (không cần backend)
+      Bạn có thể thay thế form trên bằng form này bằng cách xóa comment
+    -->
+    <!-- 
+    <form action="https://formsubmit.co/your-email@example.com" method="POST">
+      <div class="form-group">
+        <label for="formsubmit-email">Email của bạn:</label>
+        <input type="email" id="formsubmit-email" name="email" required placeholder="example@gmail.com">
+      </div>
+      <input type="hidden" name="_subject" value="Đăng ký nhận báo giá sản phẩm Ếch Giống 95">
+      <input type="hidden" name="_next" value="https://your-website.com/thank-you.html">
+      <button type="submit">Đăng ký ngay</button>
+    </form>
+    -->
+    
+    <p class="note">
+      <small>
+        Bạn cũng có thể liên hệ với chúng tôi qua email: <a href="mailto:info@echgiong95.vn">info@echgiong95.vn</a>
+      </small>
+    </p>
+  </div>
+
+  <script>
+    // Tùy chọn: Thêm JavaScript để xác thực form
+    document.getElementById('mailto-form').addEventListener('submit', function(e) {
+      const email = document.getElementById('email').value;
+      if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+        e.preventDefault();
+        alert('Vui lòng nhập đúng định dạng email');
+      }
+    });
+  </script>
+</body>
+</html> 

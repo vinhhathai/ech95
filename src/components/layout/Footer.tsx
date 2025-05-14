@@ -43,8 +43,8 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-green-700 mt-8 pt-4 text-center text-sm">
-          <p>© {new Date().getFullYear()} {SITE_NAME}. Đã đăng ký bản quyền.</p>
+        <div className="mt-8 pt-4 text-center text-sm">
+          <p>{new Date().getFullYear()} {SITE_NAME}</p>
         </div>
       </div>
     </footer>

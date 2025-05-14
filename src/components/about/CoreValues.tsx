@@ -26,22 +26,22 @@ const CoreValues = () => {
         <ValueCard 
           number="1" 
           title="Chất lượng" 
-          description="Cam kết cung cấp sản phẩm chất lượng cao, đáp ứng mọi tiêu chuẩn an toàn thực phẩm."
+          description="Luôn đảm bảo sản phẩm ếch sạch, an toàn và có chất lượng ổn định cho người tiêu dùng."
         />
         <ValueCard 
           number="2" 
-          title="Đổi mới" 
-          description="Không ngừng nghiên cứu và áp dụng công nghệ mới trong quy trình nuôi trồng và chế biến."
+          title="Cải tiến" 
+          description="Thường xuyên học hỏi và cải tiến phương pháp nuôi ếch để nâng cao hiệu quả."
         />
         <ValueCard 
           number="3" 
-          title="Trách nhiệm" 
-          description="Tôn trọng môi trường, đảm bảo điều kiện làm việc tốt và phát triển cộng đồng địa phương."
+          title="Thân thiện" 
+          description="Nuôi ếch theo phương pháp thân thiện với môi trường và có trách nhiệm với cộng đồng."
         />
         <ValueCard 
           number="4" 
-          title="Minh bạch" 
-          description="Công khai quy trình sản xuất và nguồn gốc sản phẩm, xây dựng niềm tin với khách hàng."
+          title="Uy tín" 
+          description="Luôn thật thà về nguồn gốc và chất lượng sản phẩm để xây dựng lòng tin với khách hàng."
         />
       </div>
     </Section>

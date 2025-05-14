@@ -7,7 +7,6 @@ import AboutUs from "@/components/about/AboutUs";
 import VisionMission from "@/components/about/VisionMission";
 import CoreValues from "@/components/about/CoreValues";
 import Leadership from "@/components/about/Leadership";
-import Certifications from "@/components/about/Certifications";
 import CtaSection from "@/components/about/CtaSection";
 
 export default function AboutPage() {
@@ -21,7 +20,6 @@ export default function AboutPage() {
         <VisionMission />
         <CoreValues />
         <Leadership />
-        <Certifications />
         <CtaSection />
       </main>
       <Footer />

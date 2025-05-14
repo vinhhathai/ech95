@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import Image from 'next/image';
 
 export default function ProcessPage() {
   return (
@@ -14,7 +15,7 @@ export default function ProcessPage() {
         <IntroSection />
         <LifeCycleSection />
         <ProcessTimeline />
-        <CertificationsBanner />
+        {/* <CertificationsBanner /> */}
       </main>
       <Footer />
     </div>
@@ -25,7 +26,6 @@ const ProcessHero = () => (
   <div className="relative min-h-[150px] py-10 bg-gradient-to-b from-green-600 to-green-800 flex items-center justify-center">
     <div className="text-center text-white px-4">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">QUY TRÌNH NUÔI VÀ SẢN XUẤT</h1>
-      <p className="text-base sm:text-lg md:text-xl">Khép kín - An toàn - Tiêu chuẩn quốc tế</p>
     </div>
   </div>
 );
@@ -43,10 +43,9 @@ const Breadcrumbs = () => (
 
 const IntroSection = () => (
   <section className="container mx-auto px-4 py-8">
-    <h2 className="text-xl sm:text-2xl font-bold text-green-800 mb-2">QUY TRÌNH KHÉP KÍN TẠI TRANG TRẠI ẾCH XANH</h2>
+    <h2 className="text-xl sm:text-2xl font-bold text-green-800 mb-2">QUY TRÌNH TẠI TRANG TRẠI ẾCH GIỐNG 95</h2>
     <div className="w-24 h-1 bg-green-800 mb-4"></div>
-    <p className="text-gray-700 mb-1">Trang trại Ếch Xanh tự hào với quy trình nuôi ếch khép kín, đảm bảo chất lượng từ khâu ương giống đến thu hoạch và chế biến.</p>
-    <p className="text-gray-700 mb-1">Chúng tôi áp dụng các tiêu chuẩn nghiêm ngặt nhằm tạo ra sản phẩm an toàn, chất lượng cao và đạt chuẩn xuất khẩu.</p>
+    <p className="text-gray-700 mb-1">Trang trại Ếch giống 95 tự hào với quy trình nuôi ếch đảm bảo chất lượng từ khâu ương giống đến thu hoạch.</p>
   </section>
 );
 
@@ -56,7 +55,16 @@ const LifeCycleSection = () => (
     <div className="w-20 h-1 bg-green-800 mb-4"></div>
     <p className="text-gray-700 mb-1">Hiểu rõ về vòng đời tự nhiên của ếch giúp chúng tôi tối ưu quy trình nuôi và phát triển ếch tại trang trại, đảm bảo điều kiện sinh trưởng tốt nhất cho từng giai đoạn phát triển.</p>
     <div className="flex flex-col md:flex-row items-center gap-8 mt-6">
-      <img src="/frog-lifecycle.png" alt="Vòng đời ếch" className="w-full md:w-1/2 max-w-lg rounded-lg border" />
+      <div className="relative w-full md:w-1/2 max-w-lg h-[300px] rounded-lg border overflow-hidden">
+        <Image 
+          src="/frog-lifecycle.png" 
+          alt="Vòng đời ếch" 
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-contain"
+          priority
+        />
+      </div>
       <ul className="flex-1 space-y-2 text-gray-700 text-sm md:text-base">
         <li>1. Trứng → 2. Nòng nọc mới nở → 3. Nòng nọc mọc chân sau → 4. Nòng nọc đủ chân → 5. Ếch con → 6. Ếch thiếu niên → 7. Ếch trưởng thành</li>
         <li>• Mỗi giai đoạn đều được kiểm soát điều kiện nước, dinh dưỡng và môi trường sống.</li>
@@ -69,7 +77,7 @@ const PROCESS_STEPS = [
   {
     title: 'CHỌN VÀ ƯƠNG GIỐNG',
     desc: [
-      'Nhập giống ếch Thái Lan thuần chủng từ nguồn cung uy tín',
+      'Nhập giống ếch thuần chủng từ nguồn cung uy tín',
       'Ương trong bể đặc biệt với hệ thống lọc tuần hoàn',
       'Kiểm soát nghiêm ngặt về nhiệt độ, nước, và thức ăn',
     ],
@@ -91,7 +99,7 @@ const PROCESS_STEPS = [
     desc: [
       'Thu hoạch ếch đạt kích thước và trọng lượng tiêu chuẩn',
       'Phân loại theo size: lớn, vừa, nhỏ',
-      'Kiểm tra chất lượng từng con trước khi đưa vào chế biến',
+      'Kiểm tra chất lượng từng con trước khi cung cấp cho thương lái/khách hàng',
     ],
     color: 'bg-lime-700',
     icon: '3',
@@ -99,9 +107,8 @@ const PROCESS_STEPS = [
   {
     title: 'CHẾ BIẾN VÀ BẢO QUẢN',
     desc: [
-      'Sơ chế trong khu vực riêng biệt với tiêu chuẩn vệ sinh cao',
-      'Đóng gói theo từng dòng sản phẩm: ếch nguyên con, đùi ếch, chế biến',
-      'Bảo quản lạnh với nhiệt độ tối ưu cho từng dạng sản phẩm',
+      'Đóng gói theo từng dòng sản phẩm: ếch nguyên con, đùi ếch,...',
+      'Bảo quản lạnh với nhiệt độ tối ưu cho các dạng sản phẩm đông lạnh',
     ],
     color: 'bg-green-900',
     icon: '4',
@@ -110,8 +117,7 @@ const PROCESS_STEPS = [
     title: 'KIỂM ĐỊNH CHẤT LƯỢNG',
     desc: [
       'Kiểm định chất lượng mẫu từ mỗi lô hàng',
-      'Phân tích vi sinh, hóa học và cảm quan',
-      'Đảm bảo đạt tiêu chuẩn an toàn thực phẩm trong nước và quốc tế',
+      'Đảm bảo đạt tiêu chuẩn an toàn thực phẩm',
     ],
     color: 'bg-lime-800',
     icon: '5',
@@ -138,6 +144,7 @@ function ProcessTimeline() {
   );
 }
 
+/* Removed unused component
 function CertificationsBanner() {
   const certs = [
     { label: 'HACCP' }, { label: 'ISO' }, { label: 'VietGAP' }, { label: 'FDA' }, { label: 'GMP' }, { label: 'BRC' }, { label: 'EU' }, { label: 'HALAL' }
@@ -156,4 +163,5 @@ function CertificationsBanner() {
       </div>
     </section>
   );
-} 
+}
+*/ 
