@@ -38,8 +38,7 @@ Website giới thiệu và quảng bá sản phẩm của **Trang trại Ếch G
 ---
 
 ## 🖼️ Demo giao diện
-> ![Trang chủ Ếch Giống 95](public/demo-home.png)
-> ![Modal sản phẩm](public/demo-modal.png)
+LINK DEMO: https://echgiong95.vercel.app/
 
 ---
 
